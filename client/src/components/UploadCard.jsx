@@ -13,19 +13,28 @@ function UploadCard() {
       const data = new FormData();
 
       for (let i = 0; i < files.length; i++) {
-         // console.log(files[i]["size"], files[i]["type"]);
-         // Make decision on how to validate file before submission
-         data.append("file", files[i]);
+         console.log(
+            `File info: ${files[i]["name"]} ${files[i]["size"]} ${typeof files[
+               i
+            ]["size"]}`
+         );
+         if (files[i]["size"] > 70000) {
+            // Tweak number here to set max file size
+            console.log(
+               `File ${files[i]["name"]} is too large! File size is ${files[i]["size"]}`
+            );
+         } else {
+            data.append("file", files[i]);
+            axios
+               .post(`/api/file/upload`, data)
+               .then((e) => {
+                  console.log(e.data, e.status);
+               })
+               .catch((err) => {
+                  console.log(err);
+               });
+         }
       }
-
-      axios
-         .post(`/api/file/upload`, data)
-         .then((e) => {
-            console.log(e.data, e.status);
-         })
-         .catch((err) => {
-            console.log(err);
-         });
    };
 
    return (
@@ -50,8 +59,8 @@ function UploadCard() {
             />
 
             <div className="supported-file-div margin-top-sm">
-               <p className="supported-file-tag">Supported file formats</p>
-               <p className="supported-files">txt, pdf, png, jpg, jpeg, gif</p>
+               <p className="supported-file-tag">Supports all file types</p>
+               <p className="supported-files">Max file size in bytes: 70000</p>
             </div>
             <button type="submit" className="btn btn-secondary btn-lg">
                Upload
