@@ -1,8 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function UploadCard() {
    const [files, setFiles] = useState([]);
+   const [message, setMessage] = useState([]);
+
+   const notify = () => {
+      toast(message);
+   };
 
    const onInputChange = (e) => {
       setFiles(e.target.files);
@@ -13,15 +20,13 @@ function UploadCard() {
       const data = new FormData();
 
       for (let i = 0; i < files.length; i++) {
-         console.log(
-            `File info: ${files[i]["name"]} ${files[i]["size"]} ${typeof files[
-               i
-            ]["size"]}`
-         );
          if (files[i]["size"] > 70000) {
             // Tweak number here to set max file size
-            console.log(
-               `File ${files[i]["name"]} is too large! File size is ${files[i]["size"]}`
+            // alert(
+            //    `${files[i]["name"]} is too large! File size is ${files[i]["size"]}. Maximum files size should be 70000 bytes`
+            // );
+            setMessage(
+               `${files[i]["name"]} is too large! File size is ${files[i]["size"]}. Maximum files size should be 70000 bytes`
             );
          } else {
             data.append("file", files[i]);
@@ -29,6 +34,7 @@ function UploadCard() {
                .post(`/api/file/upload`, data)
                .then((e) => {
                   console.log(e.data, e.status);
+                  setMessage(`File uploaded successfully!`);
                })
                .catch((err) => {
                   console.log(err);
@@ -39,6 +45,9 @@ function UploadCard() {
 
    return (
       <div className="upload-card">
+         <span>
+            <ToastContainer />
+         </span>
          <form
             className=""
             method="POST"
@@ -62,7 +71,11 @@ function UploadCard() {
                <p className="supported-file-tag">Supports all file types</p>
                <p className="supported-files">Max file size in bytes: 70000</p>
             </div>
-            <button type="submit" className="btn btn-secondary btn-lg">
+            <button
+               type="submit"
+               className="btn btn-secondary btn-lg"
+               onClick={notify}
+            >
                Upload
             </button>
          </form>
