@@ -2,7 +2,7 @@ from flask import Flask, make_response, jsonify, request
 import requests
 from werkzeug.utils import secure_filename
 import os
-ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
+# ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 
 app = Flask(__name__)
 
