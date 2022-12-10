@@ -10,15 +10,15 @@ body{
 
 .app-div{
     align-items: center;
-    margin-top: 20%;
+    margin-top: 10%;
     border-radius: 5px;
+    /* display: flex; */
     border: 4px dashed lightgray;
-    display: flex;
     justify-content: center;
     padding: 10px 0;
 }
 
 
 .upload-card{
-    padding: 3rem 0;
+    padding: 3rem 3rem;
 }

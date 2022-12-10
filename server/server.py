@@ -24,5 +24,16 @@ def upload_file():
     return make_response("file uploaded", 200)
 
 
+@app.route("/api/file/files", methods=['GET'])
+def get_files():
+    response_data = []
+    files_path = './storedFiles'
+    if request.method == 'GET':
+        files = os.listdir(files_path)
+        for file in range(len(files)):
+            response_data.append({'name': files[file]})
+    return make_response(jsonify(response_data)), 200
+
+
 if __name__ == ('__main__'):
     app.run(debug=True)
