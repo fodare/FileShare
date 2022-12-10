@@ -28,7 +28,6 @@ function UploadCard() {
             axios
                .post(`/api/file/upload`, data)
                .then((e) => {
-                  console.log(e.data, e.status);
                   notify(`${files[i]["name"]} uploaded successfully!`);
                })
                .catch((err) => {
