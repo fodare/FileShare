@@ -29,9 +29,15 @@ def get_files():
     response_data = []
     files_path = './storedFiles'
     if request.method == 'GET':
+
+        if not os.path.exists(f'./storedFiles'):
+            response_data.append(
+                {'name': "No stored files", 'isSuccessful': False})
+            return make_response(response_data, 200)
+
         files = os.listdir(files_path)
         for file in range(len(files)):
-            response_data.append({'name': files[file]})
+            response_data.append({'name': files[file], 'isSuccessful': True})
     return make_response(jsonify(response_data)), 200
 
 
