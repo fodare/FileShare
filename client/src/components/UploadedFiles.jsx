@@ -9,6 +9,8 @@ function UploadedFiles() {
          .then((e) => {
             if (e.status === 200) {
                setDataFiles(e.data);
+            } else {
+               console.log(e.data);
             }
          })
          .catch((err) => {
@@ -17,13 +19,20 @@ function UploadedFiles() {
    }, []);
 
    return (
-      <div>
-         <h1>Hello World</h1>
-         <ul>
+      <div className="uploaded-files margin-top-sm">
+         <h1>Uploaded Files:</h1>
+         <div className="uploaded-files-list">
             {dataFiles.map((file, index) => (
-               <li key={index}>{file.name}</li>
+               <div key={index} className="uploaded-files margin-top-1m">
+                  <button
+                     className="btn btn-lg btn-secondary"
+                     value={file.name}
+                  >
+                     {file.name}
+                  </button>
+               </div>
             ))}
-         </ul>
+         </div>
       </div>
    );
 }
