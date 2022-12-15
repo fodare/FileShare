@@ -41,5 +41,28 @@ def get_files():
     return make_response(jsonify(response_data)), 200
 
 
+@app.route("/api/file/delete", methods=["POST"])
+def delete_file():
+    response_data = []
+    files_path = './storedFiles'
+    if request.method == 'POST':
+        file_name_to_delete = request.json
+        if not os.path.exists(files_path):
+            response_data.append(
+                {'message': "File not found", "isSuccessful": False})
+            return make_response(response_data, 400)
+        files = os.listdir(files_path)
+        if file_name_to_delete["name"] in files:
+            try:
+                os.remove(f'{files_path}/{file_name_to_delete["name"]}')
+                response_data.append(
+                    {"message": f'{file_name_to_delete["name"]} deleted', "isSuccessful": True})
+                return make_response(jsonify(response_data, 200))
+            except:
+                response_data.append(
+                    {"message": 'Error deleting file', "isSuccessful": False})
+                return make_response(jsonify(response_data, 400))
+
+
 if __name__ == ('__main__'):
     app.run(debug=True)

@@ -27,6 +27,6 @@ body{
     padding: 3rem 3rem;
 }
 
-.uploaded-files{
-
+.uploaded-files-list{
+    display: flex;
 }
