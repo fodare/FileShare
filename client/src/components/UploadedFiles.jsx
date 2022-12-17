@@ -52,24 +52,29 @@ function UploadedFiles() {
             <ToastContainer theme="dark" autoClose={8000} />
          </span>
          <h1>Uploaded Files:</h1>
-         <div className="uploaded-files-list">
+         <div className="margin-top-1m">
             {dataFiles.map((file, index) => (
-               <div key={index} className="uploaded-files margin-top-1m">
-                  <div className="">
-                     <button
-                        className="btn btn-lg btn-secondary float-start"
-                        value={file.name}
-                     >
-                        {file.name}
-                     </button>
-                     <button
-                        type="button"
-                        className="btn-close float-end"
-                        aria-label="Close"
-                        value={file.name}
-                        onClick={deleteFile}
-                     ></button>
-                  </div>
+               <div className="hstack gap-3 margin-top-1m" key={index}>
+                  <input
+                     className="form-control me-auto"
+                     type="text"
+                     value={file.name}
+                     placeholder="Add your item here..."
+                     aria-label="Add your item here..."
+                     disabled
+                  />
+                  <button type="button" className="btn btn-secondary">
+                     Share
+                  </button>
+                  <div className="vr"></div>
+                  <button
+                     onClick={deleteFile}
+                     type="button"
+                     className="btn btn-outline-danger"
+                     value={file.name}
+                  >
+                     Delete
+                  </button>
                </div>
             ))}
          </div>
