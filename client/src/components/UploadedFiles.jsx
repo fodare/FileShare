@@ -17,11 +17,15 @@ function UploadedFiles() {
             if (e.status === 200) {
                setDataFiles(e.data);
             } else {
-               console.log(e.data);
+               console.log(
+                  `Error retrieving files from server.Response code: ${e.status}`
+               );
             }
          })
          .catch((err) => {
-            console.log(err);
+            console.log(
+               `Error retrieving files from backend service. Message: ${err}`
+            );
          });
    }, []);
 
@@ -51,19 +55,21 @@ function UploadedFiles() {
          <div className="uploaded-files-list">
             {dataFiles.map((file, index) => (
                <div key={index} className="uploaded-files margin-top-1m">
-                  <button
-                     className="btn btn-lg btn-secondary"
-                     value={file.name}
-                  >
-                     {file.name}
-                  </button>
-                  <button
-                     type="button"
-                     className="btn-close"
-                     aria-label="Close"
-                     value={file.name}
-                     onClick={deleteFile}
-                  ></button>
+                  <div className="">
+                     <button
+                        className="btn btn-lg btn-secondary float-start"
+                        value={file.name}
+                     >
+                        {file.name}
+                     </button>
+                     <button
+                        type="button"
+                        className="btn-close float-end"
+                        aria-label="Close"
+                        value={file.name}
+                        onClick={deleteFile}
+                     ></button>
+                  </div>
                </div>
             ))}
          </div>
