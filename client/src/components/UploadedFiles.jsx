@@ -17,11 +17,15 @@ function UploadedFiles() {
             if (e.status === 200) {
                setDataFiles(e.data);
             } else {
-               console.log(e.data);
+               console.log(
+                  `Error retrieving files from server.Response code: ${e.status}`
+               );
             }
          })
          .catch((err) => {
-            console.log(err);
+            console.log(
+               `Error retrieving files from backend service. Message: ${err}`
+            );
          });
    }, []);
 
@@ -48,22 +52,29 @@ function UploadedFiles() {
             <ToastContainer theme="dark" autoClose={8000} />
          </span>
          <h1>Uploaded Files:</h1>
-         <div className="uploaded-files-list">
+         <div className="margin-top-1m">
             {dataFiles.map((file, index) => (
-               <div key={index} className="uploaded-files margin-top-1m">
+               <div className="hstack gap-3 margin-top-1m" key={index}>
+                  <input
+                     className="form-control me-auto"
+                     type="text"
+                     value={file.name}
+                     placeholder="Add your item here..."
+                     aria-label="Add your item here..."
+                     disabled
+                  />
+                  <button type="button" className="btn btn-secondary">
+                     Share
+                  </button>
+                  <div className="vr"></div>
                   <button
-                     className="btn btn-lg btn-secondary"
+                     onClick={deleteFile}
+                     type="button"
+                     className="btn btn-outline-danger"
                      value={file.name}
                   >
-                     {file.name}
+                     Delete
                   </button>
-                  <button
-                     type="button"
-                     className="btn-close"
-                     aria-label="Close"
-                     value={file.name}
-                     onClick={deleteFile}
-                  ></button>
                </div>
             ))}
          </div>
