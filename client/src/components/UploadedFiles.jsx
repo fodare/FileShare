@@ -56,11 +56,9 @@ function UploadedFiles() {
             {dataFiles.map((file, index) => (
                <div className="hstack gap-3 margin-top-1m" key={index}>
                   <input
-                     className="form-control me-auto"
-                     type="text"
+                     className="form-control"
+                     type="test"
                      value={file.name}
-                     placeholder="Add your item here..."
-                     aria-label="Add your item here..."
                      disabled
                   />
                   <button type="button" className="btn btn-secondary">
