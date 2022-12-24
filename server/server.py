@@ -77,7 +77,7 @@ def get_file(fileName):
         response_data.append(
             {"message": "File not found", "isSuccessful": False})
         return make_response(response_data, 400)
-    return send_from_directory(files_path, fileName, as_attachment=True, cache_timeout=0)
+    return send_from_directory(files_path, fileName, as_attachment=True)
 
 
 if __name__ == ('__main__'):
