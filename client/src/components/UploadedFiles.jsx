@@ -46,6 +46,12 @@ function UploadedFiles() {
       }
    };
 
+   const copyDownloadLink = (e) => {
+      var downloadLink = e.target.value;
+      navigator.clipboard.writeText(downloadLink);
+      notify("Link copied");
+   };
+
    return (
       <div className="uploaded-files margin-top-sm">
          <span>
@@ -61,10 +67,14 @@ function UploadedFiles() {
                      value={file.name}
                      disabled
                   />
-                  <button type="button" className="btn btn-secondary">
+                  <button
+                     onClick={copyDownloadLink}
+                     type="button"
+                     className="btn btn-secondary"
+                     value={`http://127.0.0.1:5000/api/file/${file.name}`}
+                  >
                      Share
                   </button>
-                  <div className="vr"></div>
                   <button
                      onClick={deleteFile}
                      type="button"
