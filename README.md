@@ -61,3 +61,7 @@ Start the server-side application by executing the command below:
 `python3 server.py`
 
 You can interact with the frontend application via the URL: <http://localhost:3000>. Backend proxy settings can be found in the client side `package.json` file, key `proxy`.
+
+## Sample view
+
+![Screenshot of client application](SampleView.png)
