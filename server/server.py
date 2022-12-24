@@ -1,4 +1,4 @@
-from flask import Flask, make_response, jsonify, request
+from flask import Flask, make_response, jsonify, request, send_file, send_from_directory
 import requests
 from werkzeug.utils import secure_filename
 import os
@@ -62,6 +62,22 @@ def delete_file():
                 response_data.append(
                     {"message": 'Error deleting file', "isSuccessful": False})
                 return make_response(jsonify(response_data, 400))
+
+
+@app.route("/api/file/<string:fileName>", methods=["GET"])
+def get_file(fileName):
+    response_data = []
+    files_path = './storedFiles'
+    if not os.path.exists(files_path):
+        response_data.append(
+            {"message": "File not found", "isSuccessful": False})
+        return make_response(response_data, 400)
+    files = os.listdir(files_path)
+    if fileName not in files:
+        response_data.append(
+            {"message": "File not found", "isSuccessful": False})
+        return make_response(response_data, 400)
+    return send_from_directory(files_path, fileName, as_attachment=True)
 
 
 if __name__ == ('__main__'):
